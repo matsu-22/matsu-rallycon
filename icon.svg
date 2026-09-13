@@ -1,1 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="90" fill="#050505"/><path d="M90 380L210 120h70l-55 120h120l55-120h70L350 380h-70l55-120H215l-55 120z" fill="white"/><circle cx="390" cy="370" r="45" fill="#f2c500"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="90" fill="#050505"/><text x="256" y="315" text-anchor="middle" font-family="Arial" font-size="190" font-weight="700" fill="white">R</text>
+</svg>
