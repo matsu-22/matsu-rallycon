@@ -2,214 +2,97 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Matsu RallyCon">
-<meta name="theme-color" content="#050505">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.svg">
-<title>Matsu RallyCon v0.3.1</title>
+<meta name="theme-color" content="#05070a">
+<title>Matsu RallyCon v0.5 PDF</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;background:#050505;color:#fff;overflow:hidden;font-family:Arial,sans-serif}
-#app{height:100dvh;display:flex;flex-direction:column;padding:calc(6px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));gap:6px;overflow:hidden}
-.top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;min-height:30px;font:700 13px monospace;text-align:center;min-width:0}.top span{min-width:0;white-space:nowrap;overflow:hidden}
-.top span:first-child{text-align:left}.top span:last-child{text-align:right}
-.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(150px,22%) minmax(0,1fr) minmax(175px,22%);gap:7px;overflow:hidden}
-.panel{border:1px solid #555;border-radius:10px;padding:8px;display:flex;flex-direction:column;justify-content:space-around;min-width:0}
-.metric{text-align:center}.label{font:700 13px monospace;color:#bbb}
-.value{font:700 clamp(22px,4vw,34px) monospace;white-space:nowrap;overflow:hidden;text-overflow:clip}
-#time{font-size:clamp(18px,3vw,30px);letter-spacing:-1px}
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #777;border-radius:10px;position:relative;min-width:0}
-.rbhead{position:absolute;top:7px;left:10px;right:10px;display:flex;justify-content:space-between;font:700 15px monospace}
-.arrow{font:700 min(24vw,150px)/1 Arial;text-align:center;margin-top:5px}
-.rbtext{font:700 clamp(18px,3vw,30px) monospace}
-.warning{font:700 15px monospace;min-height:20px}
-.remaining{font:700 clamp(14px,2.3vw,22px) monospace;margin-top:5px}
-button{color:#fff;background:#101010;border:1px solid #777;border-radius:8px;min-height:46px;font:700 16px Arial;padding:6px 10px}
-button:active{background:#444}
-.bottom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;min-height:52px;min-width:0}.bottom button{min-width:0;white-space:nowrap}
-.small,.status{font:700 12px monospace}
-.status{text-align:center}
-@media(max-width:700px) and (orientation:portrait){
-body:before{content:"iPhoneを横向きにしてください";position:fixed;inset:0;z-index:99;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold}
-.top,.main,.bottom{display:none}
-}
+:root{--bg:#05070a;--panel:#0c1016;--line:#2a313b;--text:#f4f7fb;--muted:#8e9aaa;--accent:#1976ff;--warn:#ffd34d;--danger:#ff4d4d;--ok:#23d46b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans JP",sans-serif}button,input{font:inherit}
+#app{width:100%;height:100%;padding:calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));display:grid;grid-template-rows:42px minmax(0,1fr) 58px;gap:8px}
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--line);min-width:0}.brand{font-weight:800;font-size:clamp(15px,2.2vw,23px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:12px;white-space:nowrap}.fix{width:11px;height:11px;border-radius:50%;background:var(--danger);box-shadow:0 0 10px #ff4d4d}.fix.on{background:var(--ok);box-shadow:0 0 10px #23d46b}.capTop{justify-self:end;font-size:clamp(15px,2.2vw,24px);font-weight:800;white-space:nowrap}
+.main{min-height:0;display:grid;grid-template-columns:minmax(145px,20%) minmax(0,1fr) minmax(180px,22%);gap:8px}
+.panel{background:linear-gradient(180deg,#0d1219,#090c11);border:1px solid var(--line);border-radius:13px;min-width:0;min-height:0;overflow:hidden}.left{display:grid;grid-template-rows:repeat(3,minmax(0,1fr)) auto;gap:7px;background:transparent;border:0;overflow:visible}.metric{padding:8px 10px;border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;justify-content:center;min-height:0}.metric .label{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.08em}.metric .value{font-size:clamp(30px,5vw,65px);font-weight:900;line-height:.95;white-space:nowrap}.metric .unit{font-size:11px;color:var(--muted);text-align:right}.timeRow{display:flex;align-items:center;gap:7px}.timeRow .value{font-size:clamp(20px,3vw,35px)}.round{width:42px;height:42px;border-radius:50%;border:1px solid #53606f;background:#161d26;color:#fff;font-size:18px;flex:0 0 auto}.corr{padding:8px;border:1px solid var(--line);border-radius:12px}.corrTitle{font-size:11px;color:var(--muted);margin-bottom:6px}.corrBtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}.btn{border:1px solid #384452;background:#141a22;color:#fff;border-radius:8px;padding:8px 5px;font-weight:800;min-width:0;white-space:nowrap}.btn.red{background:#421a1d}.btn.blue{background:#103b78}.btn.active{outline:2px solid #2d8cff}
+.viewer{position:relative;display:grid;grid-template-rows:42px minmax(0,1fr);min-width:0;min-height:0}.viewerHead{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:6px;align-items:center;padding:5px 8px;border-bottom:1px solid var(--line);min-width:0}.fileName{font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pageNo{font-weight:900;white-space:nowrap}.viewerHead button{height:31px;min-width:34px;padding:0 8px}.stage{position:relative;min-height:0;overflow:hidden;background:#161b22;display:flex;align-items:center;justify-content:center}.canvasWrap{position:relative;max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center}.canvasWrap canvas{display:block;max-width:none;background:white;box-shadow:0 0 18px rgba(0,0,0,.45)}#focusBox{position:absolute;border:3px solid #ff3030;background:rgba(255,48,48,.08);box-shadow:0 0 0 2px rgba(255,255,255,.5),0 0 14px rgba(255,48,48,.7);display:none;pointer-events:none}.sideArrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:64px;border-radius:50%;background:rgba(5,7,10,.7);border:1px solid #657180;color:#fff;font-size:34px;z-index:4}.sideArrow.leftA{left:8px}.sideArrow.rightA{right:8px}
+.right{display:grid;grid-template-rows:auto auto auto 1fr;gap:7px;background:transparent;border:0;overflow:visible}.rbBox,.infoBox{padding:10px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#0d1219,#090c11)}.rbHead{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:900}.rbNo{font-size:clamp(35px,5vw,64px);font-weight:900;line-height:1}.nextDist{display:flex;justify-content:space-between;align-items:end;margin-top:4px}.nextDist .big{font-size:clamp(24px,3.5vw,42px);font-weight:900}.nextDist small{color:var(--muted)}.toggle{display:flex;justify-content:space-between;align-items:center;margin-top:7px}.switch{width:48px;height:27px;border-radius:99px;background:#333;position:relative;border:1px solid #56606c}.switch:after{content:"";position:absolute;width:21px;height:21px;top:2px;left:2px;border-radius:50%;background:#fff;transition:.15s}.switch.on{background:var(--accent)}.switch.on:after{left:23px}.infoBox{min-height:0}.infoLine{display:flex;justify-content:space-between;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #1e252e}.infoLine:last-child{border-bottom:0}.infoLine span:first-child{color:var(--muted)}
+.bottom{display:grid;grid-template-columns:1.1fr .9fr .9fr 1.1fr 1.1fr 1.1fr;gap:7px;min-width:0}.bottom .btn{height:58px;font-size:clamp(11px,1.6vw,16px)}.primary{background:#1459c7;border-color:#3181ff}.hidden{display:none!important}.portrait{display:none;position:fixed;inset:0;background:#05070a;z-index:99;align-items:center;justify-content:center;text-align:center;padding:30px;font-weight:900;font-size:22px}.portrait div{max-width:420px}.toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:rgba(0,0,0,.88);border:1px solid #53606f;border-radius:9px;padding:9px 13px;z-index:20;display:none;font-size:12px;max-width:85vw;text-align:center}
+@media(max-width:760px){#app{grid-template-rows:36px minmax(0,1fr) 50px;gap:5px;padding:calc(4px + env(safe-area-inset-top)) calc(5px + env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) calc(5px + env(safe-area-inset-left))}.main{grid-template-columns:26% minmax(0,1fr) 29%;gap:5px}.left{gap:5px}.metric{padding:5px}.metric .value{font-size:clamp(24px,6vw,45px)}.right{gap:5px}.rbBox,.infoBox{padding:7px}.bottom{gap:4px}.bottom .btn{height:50px;padding:0 3px}.viewerHead{gap:3px;padding:4px}.viewerHead button{height:28px;min-width:28px;padding:0 5px}.brand{font-size:14px}}
+@media(orientation:portrait){.portrait{display:flex}}
 </style>
 </head>
 <body>
+<div class="portrait"><div>📱<br><br>横向きで使ってね。<br><span style="font-size:15px;color:#9aa5b3">Matsu RallyConはラリー走行用の横画面UIです。</span></div></div>
 <div id="app">
-  <div class="top">
-    <span id="gps">GPS --m</span>
-    <span id="cap">CAP ---°</span>
-    <span id="headingMode">GPS-CAP</span>
-    <span>Matsu RallyCon v0.3.1 SAFE</span>
-  </div>
-
-  <div class="main">
-    <section class="panel">
-      <div class="metric"><div class="label">TOTAL</div><div class="value" id="total">0.00</div><div class="small">km</div></div>
-      <div class="metric"><div class="label">LEG</div><div class="value" id="leg">0.00</div><div class="small">km</div></div>
-      <div class="metric"><div class="label">SPEED</div><div class="value" id="speed">0.0</div><div class="small">km/h</div></div>
+  <header class="top"><div class="status"><i id="fix" class="fix"></i><b id="gpsText">GPS WAIT</b><span id="accText">精度 --</span></div><div class="brand">Matsu RallyCon v0.5 PDF</div><div class="capTop">🧭 CAP <span id="capTop">---</span>°</div></header>
+  <main class="main">
+    <section class="left">
+      <div class="metric"><div class="label">TOTAL</div><div class="value" id="total">0.00</div><div class="unit">km</div></div>
+      <div class="metric"><div class="label">LEG</div><div class="value" id="leg">0.00</div><div class="unit">km</div></div>
+      <div class="metric"><div class="label">SPEED</div><div class="value" id="speed">0.0</div><div class="unit">km/h</div></div>
+      <div class="metric"><div class="label">TIME</div><div class="timeRow"><div class="value" id="time">00:00:00</div><button id="timerBtn" class="round">▶</button></div></div>
+      <div class="corr"><div class="corrTitle">距離補正（TOTAL）</div><div class="corrBtns"><button id="minus" class="btn red">−10m</button><button id="reset" class="btn">RESET</button><button id="plus" class="btn blue">＋10m</button></div></div>
     </section>
 
-    <section class="center">
-      <div class="rbhead"><span>ROADBOOK <span id="rbno">1</span></span><span id="target">0.00 km</span></div>
-      <div class="arrow" id="arrow">↗</div>
-      <div class="rbtext" id="rbtext">START</div>
-      <div class="warning" id="warning"></div>
-      <div class="remaining" id="remaining">NEXTまで 0.00 km</div>
+    <section class="panel viewer">
+      <div class="viewerHead"><div id="fileName" class="fileName">PDF未読込</div><button id="prevPage" class="btn">‹</button><div id="pageNo" class="pageNo">0 / 0</div><button id="nextPage" class="btn">›</button><button id="zoomOut" class="btn">−</button><button id="zoomIn" class="btn">＋</button></div>
+      <div id="stage" class="stage"><div id="canvasWrap" class="canvasWrap"><canvas id="pdfCanvas"></canvas><div id="focusBox"></div></div><button id="leftA" class="sideArrow leftA">‹</button><button id="rightA" class="sideArrow rightA">›</button></div>
     </section>
 
-    <section class="panel">
-      <div class="metric"><div class="label">TIME</div><div class="value" id="time">00:00:00</div></div>
-      <button id="start">START</button>
-      <button id="next">NEXT</button>
-      <div class="status" id="status">GPS待機中</div>
+    <section class="right">
+      <div class="rbBox"><div class="rbHead"><span>⚑ ROADBOOK</span><span id="rbPage">PDF page --</span></div><div class="rbNo"><span id="rbNo">--</span><span style="font-size:15px;color:#8e9aaa"> / <span id="rbCount">--</span></span></div><div class="nextDist"><div><small>NEXTまで</small><div class="big" id="nextDist">--</div></div><div style="text-align:right"><small>次TOTAL</small><div style="font-weight:900" id="nextTotal">--</div></div></div><div class="toggle"><span>AUTO NEXT</span><button id="autoSwitch" class="switch on" aria-label="auto next"></button></div></div>
+      <div class="rbBox"><div class="rbHead"><span>🧭 CAP（電子コンパス）</span><button id="cal" class="btn">0°セット</button></div><div style="font-size:clamp(27px,4vw,45px);font-weight:900;margin-top:3px"><span id="cap">---</span>°</div><div style="display:flex;justify-content:space-between;color:#8e9aaa;font-size:11px"><span>GPS進行方位</span><span id="gpsCap">---</span>°</div></div>
+      <div class="infoBox"><div class="rbHead" style="margin-bottom:5px">📄 FILE / PDF</div><div class="infoLine"><span>論理コマ</span><b id="logicalCount">--</b></div><div class="infoLine"><span>物理PDF</span><b id="pdfCount">--</b></div><div class="infoLine"><span>ズーム</span><b id="zoomText">Fit</b></div><div class="infoLine"><span>モード</span><b id="modeText">待機</b></div><div style="margin-top:7px;color:#8e9aaa;font-size:10px;line-height:1.45">このv0.5は、コマ練Classic2026のTOTAL情報を内蔵。別PDFは手動ページ送りで利用可能。次段階で汎用PDF解析・コマ索引を追加できます。</div></div>
     </section>
-  </div>
-
-  <div class="bottom">
-    <button id="minus">−10m</button>
-    <button id="reset">0 RESET</button>
-    <button id="plus">+10m</button>
-    <button id="gpsbtn">GPS START</button>
-    <button id="compass">🧭 CAP</button>
-    <button id="cal">CAP 0°</button>
-  </div>
+  </main>
+  <footer class="bottom"><button id="loadPdf" class="btn">📁 PDF読込</button><button id="first" class="btn">|◀ 先頭</button><button id="prevRb" class="btn">◀ 前のコマ</button><button id="nextRb" class="btn primary">▶ 次のコマ</button><button id="sync" class="btn">📍 現在地に同期</button><button id="menu" class="btn">☰ メニュー</button><input id="pdfFile" class="hidden" type="file" accept="application/pdf,.pdf"></footer>
 </div>
-
+<div id="toast" class="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-
-let watchId=null,last=null,total=0,correction=0,legBase=0;
-let timerStart=null,elapsed=0,rb=1, sensorHeading=null, capOffset=0;
-let lastAutoNext=0;
-
-const roadbook=[
- {no:1,dist:0.00,arrow:"↗",text:"START",warn:""},
- {no:2,dist:0.85,arrow:"→",text:"右",warn:""},
- {no:3,dist:1.42,arrow:"←",text:"左",warn:"注意：急カーブ"},
- {no:4,dist:2.13,arrow:"→",text:"右",warn:""},
- {no:5,dist:3.00,arrow:"↑",text:"直進",warn:"CP"},
- {no:6,dist:4.25,arrow:"↖",text:"左前",warn:""}
-];
-
-function displayTotal(){return (total+correction)/1000}
-function displayLeg(){return Math.max(0,displayTotal()-legBase)}
-function update(){
-  $("total").textContent=displayTotal().toFixed(2);
-  $("leg").textContent=displayLeg().toFixed(2);
-  $("gpsbtn").textContent=watchId!==null?"GPS STOP":"GPS START";
-  const target=roadbook[rb-1].dist;
-  $("target").textContent=target.toFixed(2)+" km";
-  const remain=Math.max(0,target-displayTotal());
-  $("remaining").textContent="NEXTまで "+remain.toFixed(2)+" km";
-}
-function setRB(n){
-  rb=Math.max(1,Math.min(roadbook.length,n));
-  const r=roadbook[rb-1];
-  $("rbno").textContent=r.no;$("arrow").textContent=r.arrow;$("rbtext").textContent=r.text;$("warning").textContent=r.warn;
-  update();
-}
-function dist(a,b){
-  const R=6371000,p=Math.PI/180,d1=(b.lat-a.lat)*p,d2=(b.lon-a.lon)*p;
-  const x=Math.sin(d1/2)**2+Math.cos(a.lat*p)*Math.cos(b.lat*p)*Math.sin(d2/2)**2;
-  return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
-}
-function setCap(deg,mode){
-  if(!Number.isFinite(deg)) return;
-  let d=(deg+capOffset+360)%360;
-  $("cap").textContent="CAP "+String(Math.round(d)).padStart(3,"0")+"°";
-  $("headingMode").textContent=mode;
-}
-function handleOrientation(e){
-  let h=null;
-  if(typeof e.webkitCompassHeading==="number" && Number.isFinite(e.webkitCompassHeading)) h=e.webkitCompassHeading;
-  else if(typeof e.alpha==="number" && e.absolute===true) h=(360-e.alpha)%360;
-  if(h!==null){sensorHeading=h;setCap(h,"COMPASS")}
-}
-async function enableCompass(){
-  try{
-    if(typeof DeviceOrientationEvent==="undefined"){ $("status").textContent="コンパス非対応"; return; }
-    if(typeof DeviceOrientationEvent.requestPermission==="function"){
-      const p=await DeviceOrientationEvent.requestPermission();
-      if(p!=="granted"){ $("status").textContent="CAPセンサー許可が必要"; return; }
-    }
-    window.addEventListener("deviceorientation",handleOrientation,true);
-    $("status").textContent="電子コンパス受信中";
-  }catch(e){$("status").textContent="CAPセンサー開始失敗"}
-}
-function calibrate(){
-  let current=null;
-  const text=$("cap").textContent.match(/(\d+)/);
-  if(text) current=Number(text[1]);
-  if(current!==null){capOffset=(360-current)%360;setCap(current,"CALIBRATED");$("status").textContent="CAP 0°補正しました";}
-}
-function startGPS(){
-  if(!navigator.geolocation){$("status").textContent="GPS非対応";return}
-  if(watchId!==null)return;
-  watchId=navigator.geolocation.watchPosition(pos=>{
-    const c=pos.coords;
-    $("gps").textContent=`GPS ${Math.round(c.accuracy||0)}m`;
-    if(c.speed!==null && c.speed>=0)$("speed").textContent=(c.speed*3.6).toFixed(1);
-
-    if(sensorHeading===null && c.heading!==null && c.heading>=0) setCap(c.heading,"GPS-CAP");
-
-    const now={lat:c.latitude,lon:c.longitude};
-    if(last){
-      const d=dist(last,now);
-      // Reject obvious GPS jumps while retaining normal rally movement.
-      if(d<100) total+=d;
-    }
-    last=now;
-    $("status").textContent="GPS受信中";
-    update();
-
-    // Auto NEXT when total reaches the roadbook target, with a small hysteresis.
-    if(rb<roadbook.length){
-      const remain=roadbook[rb].dist-displayTotal();
-      if(remain<=0.015 && displayTotal()>lastAutoNext+0.02){
-        lastAutoNext=displayTotal();
-        rb++;
-        legBase=displayTotal();
-        setRB(rb);
-      }
-    }
-  },e=>$("status").textContent="GPSエラー "+e.code,
-  {enableHighAccuracy:true,maximumAge:0,timeout:10000});
-  update();
-}
-function stopGPS(){
-  if(watchId!==null)navigator.geolocation.clearWatch(watchId);
-  watchId=null;last=null;update();
-}
-function tm(s){
-  let h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;
-  return[h,m,x].map(v=>String(v).padStart(2,"0")).join(":");
-}
-async function wake(){
-  try{if("wakeLock"in navigator)await navigator.wakeLock.request("screen")}catch(e){}
-}
-
-$("gpsbtn").onclick=()=>watchId===null?startGPS():stopGPS();
-$("minus").onclick=()=>{correction-=10;update()};
-$("plus").onclick=()=>{correction+=10;update()};
-$("reset").onclick=()=>{correction=0;total=0;legBase=0;last=null;lastAutoNext=0;setRB(1);update()};
-$("next").onclick=()=>{if(rb<roadbook.length){rb++;legBase=displayTotal();lastAutoNext=displayTotal();setRB(rb)}};
-$("start").onclick=()=>{
-  if(timerStart===null){timerStart=Date.now()-elapsed*1000;$("start").textContent="STOP";wake()}
-  else{elapsed=Math.floor((Date.now()-timerStart)/1000);timerStart=null;$("start").textContent="START"}
-};
-$("compass").onclick=enableCompass;
-$("cal").onclick=calibrate;
-
-setInterval(()=>{
-  if(timerStart!==null){elapsed=Math.floor((Date.now()-timerStart)/1000);$("time").textContent=tm(elapsed)}
-},250);
-
-setRB(1);update();
+'use strict';
+const $=id=>document.getElementById(id); const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const routeIndex=[{"no":1,"dist":0.0,"inter":0.0,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":0},{"no":2,"dist":2.65,"inter":2.65,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":1},{"no":3,"dist":4.48,"inter":1.83,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":2},{"no":4,"dist":8.06,"inter":3.58,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":3},{"no":5,"dist":14.61,"inter":6.55,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":4},{"no":6,"dist":17.83,"inter":3.22,"page":1,"logicalPage":1,"side":"R","pdfPage":1,"row":5},{"no":7,"dist":18.78,"inter":0.95,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":0},{"no":8,"dist":19.12,"inter":0.34,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":1},{"no":9,"dist":19.52,"inter":0.4,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":2},{"no":10,"dist":20.05,"inter":0.53,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":3},{"no":11,"dist":20.67,"inter":0.62,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":4},{"no":12,"dist":20.77,"inter":0.1,"page":2,"logicalPage":2,"side":"L","pdfPage":2,"row":5},{"no":13,"dist":22.24,"inter":1.47,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":0},{"no":14,"dist":22.68,"inter":0.44,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":1},{"no":15,"dist":23.07,"inter":0.39,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":2},{"no":16,"dist":32.05,"inter":8.98,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":3},{"no":17,"dist":33.0,"inter":0.95,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":4},{"no":18,"dist":34.85,"inter":1.85,"page":2,"logicalPage":3,"side":"R","pdfPage":2,"row":5},{"no":19,"dist":35.2,"inter":0.35,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":0},{"no":20,"dist":36.39,"inter":1.19,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":1},{"no":21,"dist":39.03,"inter":2.64,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":2},{"no":22,"dist":39.36,"inter":0.33,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":3},{"no":23,"dist":42.57,"inter":3.21,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":4},{"no":24,"dist":43.26,"inter":0.69,"page":3,"logicalPage":4,"side":"L","pdfPage":3,"row":5},{"no":25,"dist":43.58,"inter":0.32,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":0},{"no":26,"dist":45.03,"inter":1.45,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":1},{"no":27,"dist":45.74,"inter":0.71,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":2},{"no":28,"dist":46.36,"inter":0.62,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":3},{"no":29,"dist":46.47,"inter":0.11,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":4},{"no":30,"dist":46.86,"inter":0.39,"page":3,"logicalPage":5,"side":"R","pdfPage":3,"row":5},{"no":31,"dist":47.35,"inter":0.49,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":0},{"no":32,"dist":48.02,"inter":0.67,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":1},{"no":33,"dist":49.02,"inter":1.0,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":2},{"no":34,"dist":49.34,"inter":0.32,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":3},{"no":35,"dist":49.92,"inter":0.58,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":4},{"no":36,"dist":50.04,"inter":0.12,"page":4,"logicalPage":6,"side":"L","pdfPage":4,"row":5},{"no":37,"dist":50.38,"inter":0.34,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":0},{"no":38,"dist":50.96,"inter":0.58,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":1},{"no":39,"dist":52.55,"inter":1.59,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":2},{"no":40,"dist":53.93,"inter":1.38,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":3},{"no":41,"dist":54.9,"inter":0.97,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":4},{"no":42,"dist":55.77,"inter":0.87,"page":4,"logicalPage":7,"side":"R","pdfPage":4,"row":5},{"no":43,"dist":55.87,"inter":0.1,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":0},{"no":44,"dist":56.21,"inter":0.34,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":1},{"no":45,"dist":58.37,"inter":2.16,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":2},{"no":46,"dist":58.48,"inter":0.11,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":3},{"no":47,"dist":59.55,"inter":1.07,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":4},{"no":48,"dist":60.62,"inter":1.07,"page":5,"logicalPage":8,"side":"L","pdfPage":5,"row":5},{"no":49,"dist":60.78,"inter":0.16,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":0},{"no":50,"dist":60.88,"inter":0.1,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":1},{"no":51,"dist":61.33,"inter":0.45,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":2},{"no":52,"dist":61.45,"inter":0.12,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":3},{"no":53,"dist":62.14,"inter":0.69,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":4},{"no":54,"dist":62.63,"inter":0.49,"page":5,"logicalPage":9,"side":"R","pdfPage":5,"row":5},{"no":55,"dist":63.44,"inter":0.81,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":0},{"no":56,"dist":64.34,"inter":0.9,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":1},{"no":57,"dist":64.67,"inter":0.33,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":2},{"no":58,"dist":65.24,"inter":0.57,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":3},{"no":59,"dist":67.2,"inter":1.96,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":4},{"no":60,"dist":69.32,"inter":2.12,"page":6,"logicalPage":10,"side":"L","pdfPage":6,"row":5},{"no":61,"dist":70.63,"inter":1.31,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":0},{"no":62,"dist":71.41,"inter":0.78,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":1},{"no":63,"dist":71.88,"inter":0.47,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":2},{"no":64,"dist":72.21,"inter":0.33,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":3},{"no":65,"dist":73.04,"inter":0.83,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":4},{"no":66,"dist":73.31,"inter":0.27,"page":6,"logicalPage":11,"side":"R","pdfPage":6,"row":5},{"no":67,"dist":73.89,"inter":0.58,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":0},{"no":68,"dist":74.27,"inter":0.38,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":1},{"no":69,"dist":77.03,"inter":2.76,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":2},{"no":70,"dist":79.98,"inter":2.95,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":3},{"no":71,"dist":80.76,"inter":0.78,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":4},{"no":72,"dist":81.28,"inter":0.52,"page":7,"logicalPage":12,"side":"L","pdfPage":7,"row":5},{"no":73,"dist":83.24,"inter":1.4,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":0},{"no":74,"dist":82.68,"inter":0.56,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":1},{"no":75,"dist":85.62,"inter":2.38,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":2},{"no":76,"dist":86.57,"inter":0.95,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":3},{"no":77,"dist":89.01,"inter":2.44,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":4},{"no":78,"dist":90.87,"inter":1.86,"page":7,"logicalPage":13,"side":"R","pdfPage":7,"row":5},{"no":79,"dist":91.61,"inter":0.74,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":0},{"no":80,"dist":91.99,"inter":0.38,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":1},{"no":81,"dist":93.43,"inter":0.47,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":2},{"no":82,"dist":92.94,"inter":0.48,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":3},{"no":83,"dist":92.46,"inter":0.49,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":4},{"no":84,"dist":93.67,"inter":0.24,"page":8,"logicalPage":14,"side":"L","pdfPage":8,"row":5},{"no":85,"dist":94.56,"inter":0.89,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":0},{"no":86,"dist":95.09,"inter":0.53,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":1},{"no":87,"dist":95.94,"inter":0.85,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":2},{"no":88,"dist":96.05,"inter":0.11,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":3},{"no":89,"dist":97.59,"inter":1.54,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":4},{"no":90,"dist":99.25,"inter":1.66,"page":8,"logicalPage":15,"side":"R","pdfPage":8,"row":5},{"no":91,"dist":100.88,"inter":1.63,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":0},{"no":92,"dist":101.7,"inter":0.82,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":1},{"no":93,"dist":102.01,"inter":0.31,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":2},{"no":94,"dist":104.17,"inter":2.16,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":3},{"no":95,"dist":104.3,"inter":0.13,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":4},{"no":96,"dist":104.6,"inter":0.3,"page":9,"logicalPage":16,"side":"L","pdfPage":9,"row":5},{"no":97,"dist":104.87,"inter":0.27,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":0},{"no":98,"dist":104.98,"inter":0.11,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":1},{"no":99,"dist":105.11,"inter":0.13,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":2},{"no":100,"dist":105.33,"inter":0.22,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":3},{"no":101,"dist":105.43,"inter":0.1,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":4},{"no":102,"dist":105.71,"inter":0.28,"page":9,"logicalPage":17,"side":"R","pdfPage":9,"row":5},{"no":103,"dist":107.16,"inter":1.45,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":0},{"no":104,"dist":107.3,"inter":0.14,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":1},{"no":105,"dist":110.34,"inter":3.04,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":2},{"no":106,"dist":112.51,"inter":2.17,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":3},{"no":107,"dist":114.75,"inter":2.24,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":4},{"no":108,"dist":117.08,"inter":2.33,"page":10,"logicalPage":18,"side":"L","pdfPage":10,"row":5},{"no":109,"dist":117.95,"inter":0.87,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":0},{"no":110,"dist":118.26,"inter":0.31,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":1},{"no":111,"dist":121.23,"inter":2.97,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":2},{"no":112,"dist":123.66,"inter":2.43,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":3},{"no":113,"dist":126.17,"inter":2.51,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":4},{"no":114,"dist":126.63,"inter":0.46,"page":10,"logicalPage":19,"side":"R","pdfPage":10,"row":5},{"no":115,"dist":127.75,"inter":1.12,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":0},{"no":116,"dist":128.54,"inter":0.79,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":1},{"no":117,"dist":128.9,"inter":0.36,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":2},{"no":118,"dist":130.73,"inter":1.83,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":3},{"no":119,"dist":131.13,"inter":0.4,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":4},{"no":120,"dist":131.68,"inter":0.55,"page":11,"logicalPage":20,"side":"L","pdfPage":11,"row":5},{"no":121,"dist":132.29,"inter":0.61,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":0},{"no":122,"dist":132.86,"inter":0.57,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":1},{"no":123,"dist":134.59,"inter":1.73,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":2},{"no":124,"dist":135.12,"inter":0.53,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":3},{"no":125,"dist":137.68,"inter":2.56,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":4},{"no":126,"dist":140.17,"inter":2.49,"page":11,"logicalPage":21,"side":"R","pdfPage":11,"row":5},{"no":127,"dist":145.87,"inter":5.7,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":0},{"no":128,"dist":146.47,"inter":0.6,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":1},{"no":129,"dist":150.48,"inter":4.01,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":2},{"no":130,"dist":151.11,"inter":0.63,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":3},{"no":131,"dist":151.58,"inter":0.47,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":4},{"no":132,"dist":153.48,"inter":1.9,"page":12,"logicalPage":22,"side":"L","pdfPage":12,"row":5},{"no":133,"dist":162.42,"inter":8.94,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":0},{"no":134,"dist":164.69,"inter":2.27,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":1},{"no":135,"dist":165.0,"inter":0.31,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":2},{"no":136,"dist":165.61,"inter":0.61,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":3},{"no":137,"dist":166.82,"inter":1.21,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":4},{"no":138,"dist":168.81,"inter":1.99,"page":12,"logicalPage":23,"side":"R","pdfPage":12,"row":5},{"no":139,"dist":169.62,"inter":0.81,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":0},{"no":140,"dist":174.0,"inter":4.38,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":1},{"no":141,"dist":182.52,"inter":8.52,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":2},{"no":142,"dist":186.48,"inter":3.96,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":3},{"no":143,"dist":186.88,"inter":0.4,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":4},{"no":144,"dist":188.18,"inter":1.3,"page":13,"logicalPage":24,"side":"L","pdfPage":13,"row":5},{"no":145,"dist":189.34,"inter":1.16,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":0},{"no":146,"dist":194.35,"inter":5.01,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":1},{"no":147,"dist":195.5,"inter":1.15,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":2},{"no":148,"dist":196.66,"inter":1.16,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":3},{"no":149,"dist":206.26,"inter":9.6,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":4},{"no":150,"dist":207.66,"inter":1.4,"page":13,"logicalPage":25,"side":"R","pdfPage":13,"row":5},{"no":151,"dist":210.02,"inter":2.36,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":0},{"no":152,"dist":211.81,"inter":1.79,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":1},{"no":153,"dist":212.79,"inter":0.98,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":2},{"no":154,"dist":214.83,"inter":2.04,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":3},{"no":155,"dist":215.47,"inter":0.64,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":4},{"no":156,"dist":215.99,"inter":0.52,"page":14,"logicalPage":26,"side":"L","pdfPage":14,"row":5},{"no":157,"dist":216.86,"inter":0.87,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":0},{"no":158,"dist":217.23,"inter":0.37,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":1},{"no":159,"dist":217.35,"inter":0.12,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":2},{"no":160,"dist":217.69,"inter":0.34,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":3},{"no":161,"dist":218.27,"inter":0.58,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":4},{"no":162,"dist":218.44,"inter":0.17,"page":14,"logicalPage":27,"side":"R","pdfPage":14,"row":5},{"no":163,"dist":218.7,"inter":0.26,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":0},{"no":164,"dist":219.31,"inter":0.61,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":1},{"no":165,"dist":219.5,"inter":0.19,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":2},{"no":166,"dist":219.88,"inter":0.38,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":3},{"no":167,"dist":220.5,"inter":0.62,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":4},{"no":168,"dist":224.05,"inter":3.55,"page":15,"logicalPage":28,"side":"L","pdfPage":15,"row":5},{"no":169,"dist":224.71,"inter":0.66,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":0},{"no":170,"dist":229.77,"inter":5.06,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":1},{"no":171,"dist":230.51,"inter":0.74,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":2},{"no":172,"dist":233.49,"inter":2.98,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":3},{"no":173,"dist":234.15,"inter":0.66,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":4},{"no":174,"dist":239.86,"inter":5.71,"page":15,"logicalPage":29,"side":"R","pdfPage":15,"row":5},{"no":175,"dist":240.62,"inter":0.76,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":0},{"no":176,"dist":243.96,"inter":3.34,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":1},{"no":177,"dist":244.88,"inter":0.92,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":2},{"no":178,"dist":248.64,"inter":3.76,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":3},{"no":179,"dist":250.86,"inter":2.22,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":4},{"no":180,"dist":250.99,"inter":0.13,"page":16,"logicalPage":30,"side":"L","pdfPage":16,"row":5},{"no":181,"dist":252.01,"inter":1.02,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":0},{"no":182,"dist":252.91,"inter":0.9,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":1},{"no":183,"dist":253.97,"inter":1.06,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":2},{"no":184,"dist":254.96,"inter":0.99,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":3},{"no":185,"dist":255.88,"inter":0.92,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":4},{"no":186,"dist":259.66,"inter":3.78,"page":16,"logicalPage":31,"side":"R","pdfPage":16,"row":5},{"no":187,"dist":264.44,"inter":4.78,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":0},{"no":188,"dist":264.83,"inter":0.39,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":1},{"no":189,"dist":269.98,"inter":5.15,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":2},{"no":190,"dist":272.45,"inter":2.47,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":3},{"no":191,"dist":281.49,"inter":9.04,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":4},{"no":192,"dist":287.1,"inter":5.61,"page":17,"logicalPage":32,"side":"L","pdfPage":17,"row":5},{"no":193,"dist":292.6,"inter":5.5,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":0},{"no":194,"dist":292.6,"inter":0.0,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":1},{"no":195,"dist":292.81,"inter":0.21,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":2},{"no":196,"dist":293.4,"inter":0.59,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":3},{"no":197,"dist":293.87,"inter":0.47,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":4},{"no":198,"dist":300.67,"inter":6.8,"page":17,"logicalPage":33,"side":"R","pdfPage":17,"row":5},{"no":199,"dist":305.03,"inter":4.36,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":0},{"no":200,"dist":307.26,"inter":2.23,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":1},{"no":201,"dist":307.42,"inter":0.16,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":2},{"no":202,"dist":310.62,"inter":3.2,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":3},{"no":203,"dist":310.91,"inter":0.29,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":4},{"no":204,"dist":311.83,"inter":0.92,"page":18,"logicalPage":34,"side":"L","pdfPage":18,"row":5},{"no":205,"dist":314.25,"inter":2.42,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":0},{"no":206,"dist":318.75,"inter":4.5,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":1},{"no":207,"dist":319.86,"inter":1.11,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":2},{"no":208,"dist":322.03,"inter":2.17,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":3},{"no":209,"dist":325.41,"inter":3.38,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":4},{"no":210,"dist":326.26,"inter":0.85,"page":18,"logicalPage":35,"side":"R","pdfPage":18,"row":5},{"no":211,"dist":326.79,"inter":0.53,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":0},{"no":212,"dist":326.91,"inter":0.12,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":1},{"no":213,"dist":327.84,"inter":0.93,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":2},{"no":214,"dist":328.56,"inter":0.72,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":3},{"no":215,"dist":328.81,"inter":0.25,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":4},{"no":216,"dist":329.25,"inter":0.44,"page":19,"logicalPage":36,"side":"L","pdfPage":19,"row":5},{"no":217,"dist":330.62,"inter":1.37,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":0},{"no":218,"dist":330.72,"inter":0.1,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":1},{"no":219,"dist":330.83,"inter":0.11,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":2},{"no":220,"dist":331.45,"inter":0.62,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":3},{"no":221,"dist":331.94,"inter":0.49,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":4},{"no":222,"dist":332.44,"inter":0.5,"page":19,"logicalPage":37,"side":"R","pdfPage":19,"row":5},{"no":223,"dist":333.73,"inter":1.29,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":0},{"no":224,"dist":336.67,"inter":2.94,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":1},{"no":225,"dist":337.57,"inter":0.9,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":2},{"no":226,"dist":338.7,"inter":1.13,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":3},{"no":227,"dist":340.76,"inter":2.06,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":4},{"no":228,"dist":341.54,"inter":0.78,"page":20,"logicalPage":38,"side":"L","pdfPage":20,"row":5},{"no":229,"dist":343.25,"inter":1.71,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":0},{"no":230,"dist":345.7,"inter":2.45,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":1},{"no":231,"dist":350.38,"inter":4.68,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":2},{"no":232,"dist":360.69,"inter":10.31,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":3},{"no":233,"dist":362.52,"inter":1.83,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":4},{"no":234,"dist":365.19,"inter":2.67,"page":20,"logicalPage":39,"side":"R","pdfPage":20,"row":5}];
+let pdf=null,pdfBytes=null,page=0,scale=1,fitScale=1,zoom=1,roadbook=routeIndex,rb=0,autoNext=true,lastAuto=0;
+let total=0,legBase=0,offset=0,lastPos=null,lastTime=null,gpsSpeed=0,gpsCourse=null,heading=null,capOffset=0;
+let running=false,startAt=0,elapsed=0,timerHandle=null;
+let wake=null;
+const pdfjs=window['pdfjsLib']; pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').style.display='none',1800)}
+function km(a,b){const R=6371000,la=a.lat*Math.PI/180,lb=b.lat*Math.PI/180,dl=(b.lat-a.lat)*Math.PI/180,do_=(b.lon-a.lon)*Math.PI/180;const h=Math.sin(dl/2)**2+Math.cos(la)*Math.cos(lb)*Math.sin(do_/2)**2;return 2*R*Math.asin(Math.sqrt(h))/1000}
+function bearing(a,b){const p1=a.lat*Math.PI/180,p2=b.lat*Math.PI/180,d=(b.lon-a.lon)*Math.PI/180;const y=Math.sin(d)*Math.cos(p2),x=Math.cos(p1)*Math.sin(p2)-Math.sin(p1)*Math.cos(p2)*Math.cos(d);return (Math.atan2(y,x)*180/Math.PI+360)%360}
+function fmtKm(v){return Math.max(0,v).toFixed(2)} function dispTotal(){return Math.max(0,total+offset)} function display(){ $('total').textContent=fmtKm(dispTotal()); $('leg').textContent=fmtKm(dispTotal()-legBase); }
+function fmtTime(s){s=Math.floor(s);return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,'0')).join(':')}
+function updateTimer(){if(running) elapsed=(Date.now()-startAt)/1000; $('time').textContent=fmtTime(elapsed)}
+function setCap(v){if(v==null)return; let x=(v+capOffset+360)%360; heading=x;$('cap').textContent=Math.round(x);$('capTop').textContent=Math.round(x)}
+function currentRoute(){return roadbook[rb]||roadbook[roadbook.length-1]}
+function nextRoute(){return roadbook[rb+1]}
+function updateRB(){const r=currentRoute(),n=nextRoute();$('rbNo').textContent=r? r.no:'--';$('rbCount').textContent=roadbook.length||'--';$('rbPage').textContent=r?`PDF ${r.pdfPage}`:'PDF page --';$('logicalCount').textContent=roadbook.length||'--';$('nextDist').textContent=n?fmtKm(Math.max(0,n.dist-dispTotal()))+' km':'GOAL';$('nextTotal').textContent=n?fmtKm(n.dist):'—';}
+async function renderPage(){if(!pdf||!page)return;const p=await pdf.getPage(page);const base=p.getViewport({scale:1});const stage=$('stage');const availW=Math.max(80,stage.clientWidth-10),availH=Math.max(80,stage.clientHeight-10);fitScale=Math.min(availW/base.width,availH/base.height);const s=fitScale*zoom;const vp=p.getViewport({scale:s});const c=$('pdfCanvas');const dpr=Math.min(window.devicePixelRatio||1,2);c.width=Math.floor(vp.width*dpr);c.height=Math.floor(vp.height*dpr);c.style.width=vp.width+'px';c.style.height=vp.height+'px';const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);await p.render({canvasContext:ctx,viewport:vp}).promise;$('pageNo').textContent=`${page} / ${pdf.numPages}`;$('pdfCount').textContent=pdf.numPages;$('zoomText').textContent=zoom===1?'Fit':Math.round(zoom*100)+'%';positionFocus();}
+function positionFocus(){const r=currentRoute();const box=$('focusBox');if(!r||r.pdfPage!==page){box.style.display='none';return} // Approximate row highlight for this exact PDF layout.
+ const rowsPerSide=6; const side=r.side; const idx=((r.no-1)%6); const cw=$('pdfCanvas').clientWidth,ch=$('pdfCanvas').clientHeight;
+ // A4 landscape two logical pages side-by-side. Row areas are approximately 11.5% of page height.
+ const left=side==='L'?0.025:0.515, width=0.46, top=idx<6?0.075+idx*0.135:0.075; // fallback
+ const isBottom= r.block===1; const y0=isBottom?0.57:0.075; const h=0.125;
+ box.style.left=(left*cw)+'px';box.style.top=(y0*cw*0 + y0*ch)+'px';box.style.width=(width*cw)+'px';box.style.height=(h*ch)+'px';box.style.display='block';}
+function gotoPage(n){if(!pdf)return;page=clamp(n,1,pdf.numPages);renderPage()}
+function gotoRb(i,force=true){if(!roadbook.length)return;rb=clamp(i,0,roadbook.length-1);const r=currentRoute();legBase=dispTotal();updateRB();if(r&&pdf&&r.pdfPage!==page)gotoPage(r.pdfPage);else positionFocus();if(force) toast(`コマ ${r.no} / ${roadbook.length}`)}
+function nearestRb(){const d=dispTotal();let best=0;for(let i=0;i<roadbook.length;i++){if(roadbook[i].dist<=d)best=i;else break}return best}
+function syncToDistance(){if(!roadbook.length)return;const i=nearestRb();rb=i;const r=currentRoute();updateRB();if(pdf&&r.pdfPage!==page)gotoPage(r.pdfPage);else positionFocus();toast(`TOTAL ${fmtKm(dispTotal())}km → コマ ${r.no}`)}
+function maybeAuto(){if(!autoNext||!roadbook.length)return;const n=roadbook[rb+1];if(!n)return;const remain=n.dist-dispTotal();if(remain<=0.03&&dispTotal()>lastAuto+0.02){rb++;lastAuto=dispTotal();legBase=dispTotal();const r=currentRoute();updateRB();if(pdf&&r.pdfPage!==page)gotoPage(r.pdfPage);else positionFocus();navigator.vibrate?.(60);}}
+function gpsSuccess(pos){const c=pos.coords;const p={lat:c.latitude,lon:c.longitude};$('fix').classList.add('on');$('gpsText').textContent='GPS FIX';$('accText').textContent='精度 ±'+Math.round(c.accuracy||0)+'m';if(lastPos){const d=km(lastPos,p);if(d<0.10){total+=d;const dt=Math.max(.2,(pos.timestamp-lastTime)/1000);gpsSpeed=(d*1000/dt)*3.6;if(d>0.002)gpsCourse=bearing(lastPos,p)}}lastPos=p;lastTime=pos.timestamp;$('speed').textContent=gpsSpeed.toFixed(1);display();if(gpsCourse!=null)$('gpsCap').textContent=Math.round(gpsCourse);if(heading==null&&gpsCourse!=null)setCap(gpsCourse);maybeAuto();}
+function gpsError(e){$('gpsText').textContent='GPS ERR';$('accText').textContent=e.message||'位置情報を取得できません'}
+function startGps(){if(!navigator.geolocation){toast('この端末はGPSを利用できません');return}navigator.geolocation.watchPosition(gpsSuccess,gpsError,{enableHighAccuracy:true,maximumAge:500,timeout:10000})}
+function timerToggle(){if(running){elapsed=(Date.now()-startAt)/1000;running=false;clearInterval(timerHandle);$('timerBtn').textContent='▶'}else{startAt=Date.now()-elapsed*1000;running=true;timerHandle=setInterval(updateTimer,250);$('timerBtn').textContent='Ⅱ'}updateTimer()}
+async function keepAwake(){try{wake=await navigator.wakeLock?.request('screen')}catch(e){}}
+async function loadBytes(buf,name='PDF'){pdfBytes=buf;pdf=await pdfjs.getDocument({data:buf}).promise;$('fileName').textContent=name;$('modeText').textContent='PDF表示';page=1;zoom=1;await renderPage();toast(`${name} / ${pdf.numPages}ページ`);}
+$('loadPdf').onclick=()=>$('pdfFile').click();$('pdfFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const b=await f.arrayBuffer();await loadBytes(b,f.name)}catch(err){console.error(err);toast('PDFを開けませんでした')}};
+$('prevPage').onclick=()=>gotoPage(page-1);$('nextPage').onclick=()=>gotoPage(page+1);$('leftA').onclick=()=>gotoPage(page-1);$('rightA').onclick=()=>gotoPage(page+1);$('zoomIn').onclick=()=>{zoom=clamp(zoom+0.15,0.5,2.5);renderPage()};$('zoomOut').onclick=()=>{zoom=clamp(zoom-0.15,0.5,2.5);renderPage()};
+$('first').onclick=()=>gotoRb(0);$('prevRb').onclick=()=>gotoRb(rb-1);$('nextRb').onclick=()=>gotoRb(rb+1);$('sync').onclick=syncToDistance;$('autoSwitch').onclick=()=>{autoNext=!autoNext;$('autoSwitch').classList.toggle('on',autoNext);toast(autoNext?'AUTO NEXT ON':'AUTO NEXT OFF')};
+$('minus').onclick=()=>{offset-=.01;display();maybeAuto()};$('plus').onclick=()=>{offset+=.01;display();maybeAuto()};$('reset').onclick=()=>{offset=0;display();toast('距離補正 RESET')};$('timerBtn').onclick=timerToggle;$('cal').onclick=()=>{if(heading==null){toast('まずコンパスを取得してください');return}capOffset=-((heading+360)%360);setCap(heading);toast('現在方位を0°にセット')};$('menu').onclick=()=>toast('v0.5: PDF読込 / ページ / ズーム / コマ同期 / AUTO NEXT');
+window.addEventListener('resize',()=>renderPage());
+window.addEventListener('deviceorientation',e=>{let h=null;if(typeof e.webkitCompassHeading==='number')h=e.webkitCompassHeading;else if(typeof e.alpha==='number')h=(360-e.alpha)%360;if(h!=null)setCap(h)},{passive:true});
+startGps();keepAwake();updateTimer();updateRB();
+(async()=>{try{const r=await fetch('demo/KOMAREN_Classic2026.pdf');if(r.ok){await loadBytes(await r.arrayBuffer(),'コマ練Classic2026.pdf');syncToDistance()}}catch(e){}})();
 </script>
-</body>
-</html>
+</body></html>

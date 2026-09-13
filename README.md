@@ -1,33 +1,26 @@
-# Matsu RallyCon v0.3.1 SAFE
+# Matsu RallyCon v0.5 PDF
 
-iPhone Safari / Home Screen向けのラリーコンピューター試作版です。
+KOMAREN-style A4 roadbook PDFを中央に表示する、iPhone Safari / GitHub Pages向け試作です。
 
-## v0.3.1 SAFE 変更点
-- TOTAL表示を `0.00 km` の2桁表示に統一
-- LEG表示を `0.00 km` の2桁表示に統一
-- ROADBOOK目標距離・NEXTまで表示も2桁に統一
-- LEG計算を「最後にNEXTした時点のTOTALとの差」で明確化
-- 手動NEXT・自動NEXTのどちらでもLEGを0.00から再スタート
-- iPhone Safe Area対応を継承
-- 電子コンパスCAP対応を継承
-- CAP 0°補正を継承
-- GPS距離、速度、GPS精度、±10m補正、タイマー、Wake Lockを継承
-
-## LEGの動作
-例：
-- START：TOTAL 0.00 / LEG 0.00
-- 100m走行：TOTAL 0.10 / LEG 0.10
-- NEXT：TOTAL 0.10 / LEG 0.00
-- 300m走行：TOTAL 0.40 / LEG 0.30
+## 今回のポイント
+- 中央にPDFをcanvas表示
+- PDF読込（iPhoneのファイルApp / iCloud Drive等から選択）
+- ページ送り、ズーム
+- コマ練Classic2026のTOTAL距離索引を内蔵（234コマ）
+- TOTALに合わせて「現在のコマ」へ同期
+- AUTO NEXT（次TOTALまで30m以内）
+- 現在コマのPDFページへ自動移動
+- TOTAL / LEG / SPEED / TIME
+- ±10m距離補正
+- 電子コンパス / CAP 0°セット
+- iPhone Safe Area対応、横画面専用
+- サンプルPDF同梱
 
 ## 注意
-- 距離はGPS座標間の積算値です。タイヤ外周補正はまだ入れていません。
-- 電子コンパスはiPhone側のセンサー許可とキャリブレーションが必要です。
-- 実際のラリー使用前に十分な走行テストをしてください。
+- GPS距離はGPS点間の積算で、タイヤ周長補正はまだ入れていません。
+- v0.5ではサンプルPDFのコマ索引を内蔵しています。別PDFではPDF表示・手動ページ送りが使えます。
+- AUTO NEXTやPDFコマ同期を汎用化するのが次の段階です。
+- PDF.jsをCDNから読み込みます。初回表示にはインターネット接続が必要です。
 
-
-## v0.3.1 SAFE
-- TIME表示がiPhone横画面でも切れにくいよう専用サイズ調整
-- 右パネル幅を確保
-- GPS更新時の不要な要素参照を修正
-- TOTAL / LEG / ROADBOOK / NEXTまで は小数2桁表示
+## GitHub Pages
+`index.html`をルートに置き、Pagesを `main / (root)` に設定してください。
