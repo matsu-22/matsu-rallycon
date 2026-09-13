@@ -9,17 +9,18 @@
 <meta name="theme-color" content="#050505">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.svg">
-<title>Matsu RallyCon v0.2</title>
+<title>Matsu RallyCon v0.3.1</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;width:100%;height:100%;background:#050505;color:#fff;overflow:hidden;font-family:Arial,sans-serif}
 #app{height:100dvh;display:flex;flex-direction:column;padding:calc(6px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));gap:6px;overflow:hidden}
 .top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;min-height:30px;font:700 13px monospace;text-align:center;min-width:0}.top span{min-width:0;white-space:nowrap;overflow:hidden}
 .top span:first-child{text-align:left}.top span:last-child{text-align:right}
-.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(150px,22%) minmax(0,1fr) minmax(150px,20%);gap:7px;overflow:hidden}
+.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(150px,22%) minmax(0,1fr) minmax(175px,22%);gap:7px;overflow:hidden}
 .panel{border:1px solid #555;border-radius:10px;padding:8px;display:flex;flex-direction:column;justify-content:space-around;min-width:0}
 .metric{text-align:center}.label{font:700 13px monospace;color:#bbb}
-.value{font:700 clamp(22px,4vw,34px) monospace}
+.value{font:700 clamp(22px,4vw,34px) monospace;white-space:nowrap;overflow:hidden;text-overflow:clip}
+#time{font-size:clamp(18px,3vw,30px);letter-spacing:-1px}
 .center{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #777;border-radius:10px;position:relative;min-width:0}
 .rbhead{position:absolute;top:7px;left:10px;right:10px;display:flex;justify-content:space-between;font:700 15px monospace}
 .arrow{font:700 min(24vw,150px)/1 Arial;text-align:center;margin-top:5px}
@@ -43,7 +44,7 @@ body:before{content:"iPhoneを横向きにしてください";position:fixed;ins
     <span id="gps">GPS --m</span>
     <span id="cap">CAP ---°</span>
     <span id="headingMode">GPS-CAP</span>
-    <span>Matsu RallyCon v0.3 SAFE</span>
+    <span>Matsu RallyCon v0.3.1 SAFE</span>
   </div>
 
   <div class="main">
@@ -100,7 +101,6 @@ function displayLeg(){return Math.max(0,displayTotal()-legBase)}
 function update(){
   $("total").textContent=displayTotal().toFixed(2);
   $("leg").textContent=displayLeg().toFixed(2);
-  $("run").textContent=watchId!==null?"RUN":"STOP";
   $("gpsbtn").textContent=watchId!==null?"GPS STOP":"GPS START";
   const target=roadbook[rb-1].dist;
   $("target").textContent=target.toFixed(2)+" km";

@@ -1,8 +1,8 @@
-# Matsu RallyCon v0.3 SAFE
+# Matsu RallyCon v0.3.1 SAFE
 
 iPhone Safari / Home Screen向けのラリーコンピューター試作版です。
 
-## v0.3 SAFE 変更点
+## v0.3.1 SAFE 変更点
 - TOTAL表示を `0.00 km` の2桁表示に統一
 - LEG表示を `0.00 km` の2桁表示に統一
 - ROADBOOK目標距離・NEXTまで表示も2桁に統一
@@ -24,3 +24,10 @@ iPhone Safari / Home Screen向けのラリーコンピューター試作版で�
 - 距離はGPS座標間の積算値です。タイヤ外周補正はまだ入れていません。
 - 電子コンパスはiPhone側のセンサー許可とキャリブレーションが必要です。
 - 実際のラリー使用前に十分な走行テストをしてください。
+
+
+## v0.3.1 SAFE
+- TIME表示がiPhone横画面でも切れにくいよう専用サイズ調整
+- 右パネル幅を確保
+- GPS更新時の不要な要素参照を修正
+- TOTAL / LEG / ROADBOOK / NEXTまで は小数2桁表示
