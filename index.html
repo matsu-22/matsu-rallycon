@@ -1,0 +1,38 @@
+<!doctype html><html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Matsu RallyCon">
+<meta name="theme-color" content="#050505"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.svg">
+<title>Matsu RallyCon</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;background:#050505;color:#fff;overflow:hidden;font-family:Arial,sans-serif}
+#app{height:100dvh;display:flex;flex-direction:column;padding:6px;gap:6px}.top{display:flex;justify-content:space-between;align-items:center;min-height:28px;font:700 15px monospace}
+.main{flex:1;min-height:0;display:grid;grid-template-columns:22% 1fr 20%;gap:7px}.panel{border:1px solid #555;border-radius:10px;padding:8px;display:flex;flex-direction:column;justify-content:space-around;min-width:0}
+.metric{text-align:center}.label{font:700 14px monospace;color:#bbb}.value{font:700 clamp(22px,4vw,34px) monospace}.center{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #777;border-radius:10px;position:relative}
+.rbno{font:700 18px monospace;position:absolute;top:8px}.arrow{font:700 min(24vw,150px)/1 Arial;text-align:center}.rbtext{font:700 clamp(18px,3vw,30px) monospace}.warning{font:700 15px monospace}
+button{color:#fff;background:#101010;border:1px solid #777;border-radius:8px;min-height:46px;font:700 16px Arial;padding:6px 10px}button:active{background:#444}
+.bottom{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;min-height:52px}.small,.status{font:700 13px monospace}
+@media(max-width:700px) and (orientation:portrait){body:before{content:"iPhoneを横向きにしてください";position:fixed;inset:0;z-index:99;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold}.top,.main,.bottom{display:none}}
+</style></head><body><div id="app">
+<div class="top"><span id="gps">GPS --m</span><span id="cap">CAP ---°</span><span>Matsu RallyCon v0.1</span><span id="run">STOP</span></div>
+<div class="main">
+<section class="panel"><div class="metric"><div class="label">TOTAL</div><div class="value" id="total">0.000</div><div class="small">km</div></div>
+<div class="metric"><div class="label">LEG</div><div class="value" id="leg">0.000</div><div class="small">km</div></div>
+<div class="metric"><div class="label">SPEED</div><div class="value" id="speed">0.0</div><div class="small">km/h</div></div></section>
+<section class="center"><div class="rbno">ROADBOOK <span id="rbno">1</span></div><div class="arrow" id="arrow">↗</div><div class="rbtext" id="rbtext">START</div><div class="warning" id="warning"></div></section>
+<section class="panel"><div class="metric"><div class="label">TIME</div><div class="value" id="time">00:00:00</div></div><button id="start">START</button><button id="next">NEXT</button><div class="status" id="status">GPS待機中</div></section></div>
+<div class="bottom"><button id="minus">−10m</button><button id="reset">0 RESET</button><button id="plus">+10m</button><button id="gpsbtn">GPS START</button><button id="compass">🧭 CAP</button></div></div>
+<script>
+const $=id=>document.getElementById(id);let watchId=null,last=null,total=0,correction=0,legBase=0,timerStart=null,elapsed=0,rb=1;
+const roadbook=[{no:1,arrow:"↗",text:"START",warn:""},{no:2,arrow:"→",text:"右",warn:""},{no:3,arrow:"←",text:"左",warn:"注意：急カーブ"},{no:4,arrow:"→",text:"右",warn:""},{no:5,arrow:"↑",text:"直進",warn:"CP"},{no:6,arrow:"↖",text:"左前",warn:""}];
+function update(){ $("total").textContent=((total+correction)/1000).toFixed(3);$("leg").textContent=(Math.max(0,total-legBase+correction)/1000).toFixed(3);$("run").textContent=watchId!==null?"RUN":"STOP";$("gpsbtn").textContent=watchId!==null?"GPS STOP":"GPS START"}
+function setRB(n){rb=Math.max(1,Math.min(roadbook.length,n));let r=roadbook[rb-1];$("rbno").textContent=r.no;$("arrow").textContent=r.arrow;$("rbtext").textContent=r.text;$("warning").textContent=r.warn}
+function dist(a,b){const R=6371000,p=Math.PI/180,d1=(b.lat-a.lat)*p,d2=(b.lon-a.lon)*p,x=Math.sin(d1/2)**2+Math.cos(a.lat*p)*Math.cos(b.lat*p)*Math.sin(d2/2)**2;return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
+function startGPS(){if(!navigator.geolocation){$("status").textContent="GPS非対応";return}if(watchId!==null)return;watchId=navigator.geolocation.watchPosition(pos=>{let c=pos.coords;$("gps").textContent=`GPS ${Math.round(c.accuracy||0)}m`;if(c.speed>=0)$("speed").textContent=(c.speed*3.6).toFixed(1);if(c.heading>=0)$("cap").textContent=`CAP ${Math.round(c.heading)}°`;let now={lat:c.latitude,lon:c.longitude};if(last){let d=dist(last,now);if(d<100)total+=d}last=now;$("status").textContent="GPS受信中";update()},e=>$("status").textContent="GPSエラー "+e.code,{enableHighAccuracy:true,maximumAge:0,timeout:10000});update()}
+function stopGPS(){if(watchId!==null)navigator.geolocation.clearWatch(watchId);watchId=null;last=null;update()}
+function tm(s){let h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return[h,m,x].map(v=>String(v).padStart(2,"0")).join(":")}
+async function wake(){try{if("wakeLock"in navigator)await navigator.wakeLock.request("screen")}catch(e){}}
+$("gpsbtn").onclick=()=>watchId===null?startGPS():stopGPS();$("minus").onclick=()=>{correction-=10;update()};$("plus").onclick=()=>{correction+=10;update()};$("reset").onclick=()=>{correction=0;total=0;legBase=0;last=null;update()};
+$("next").onclick=()=>{if(rb<roadbook.length){rb++;setRB(rb);legBase=total}};$("start").onclick=()=>{if(timerStart===null){timerStart=Date.now()-elapsed*1000;$("start").textContent="STOP";wake()}else{elapsed=Math.floor((Date.now()-timerStart)/1000);timerStart=null;$("start").textContent="START"}};
+setInterval(()=>{if(timerStart!==null){elapsed=Math.floor((Date.now()-timerStart)/1000);$("time").textContent=tm(elapsed)}},250);
+$("compass").onclick=async()=>{if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){try{await DeviceOrientationEvent.requestPermission();$("status").textContent="CAPセンサー許可OK"}catch(e){$("status").textContent="CAP許可が必要"}}else $("status").textContent="GPS-CAPを使用"};setRB(1);update();
+</script></body></html>
