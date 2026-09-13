@@ -1,25 +1,26 @@
-# Matsu RallyCon v0.2
+# Matsu RallyCon v0.3 SAFE
 
-iPhone Safari / Home Screen Web App向けのラリーコンピューター試作。
+iPhone Safari / Home Screen向けのラリーコンピューター試作版です。
 
-## v0.2
-- GPS精度・速度・TOTAL・LEG
-- GPS Course CAP
-- iPhone電子コンパスCAP（対応端末・Safariで許可が必要）
-- CAP 0°補正
-- Roadbook距離表示
-- NEXTまでの残距離
-- 目標距離到達時の自動NEXT（約15m以内）
-- 手動NEXT
-- ±10m補正 / RESET
-- タイマー
-- 画面スリープ防止（対応時）
-- 横画面UI
+## v0.3 SAFE 変更点
+- TOTAL表示を `0.00 km` の2桁表示に統一
+- LEG表示を `0.00 km` の2桁表示に統一
+- ROADBOOK目標距離・NEXTまで表示も2桁に統一
+- LEG計算を「最後にNEXTした時点のTOTALとの差」で明確化
+- 手動NEXT・自動NEXTのどちらでもLEGを0.00から再スタート
+- iPhone Safe Area対応を継承
+- 電子コンパスCAP対応を継承
+- CAP 0°補正を継承
+- GPS距離、速度、GPS精度、±10m補正、タイマー、Wake Lockを継承
 
-※TOTALはGPS位置の積算で、タイヤ周長式トリップではありません。
-※電子コンパスは端末・iOS・取り付け状態により精度が変わります。実走前に必ずテストしてください。
+## LEGの動作
+例：
+- START：TOTAL 0.00 / LEG 0.00
+- 100m走行：TOTAL 0.10 / LEG 0.10
+- NEXT：TOTAL 0.10 / LEG 0.00
+- 300m走行：TOTAL 0.40 / LEG 0.30
 
-
-## v0.2 SAFE
-- iPhone横画面のノッチ／ホームインジケータ用Safe Area余白を追加
-- 画面端の文字・ボタンが切れにくいレイアウトへ調整
+## 注意
+- 距離はGPS座標間の積算値です。タイヤ外周補正はまだ入れていません。
+- 電子コンパスはiPhone側のセンサー許可とキャリブレーションが必要です。
+- 実際のラリー使用前に十分な走行テストをしてください。

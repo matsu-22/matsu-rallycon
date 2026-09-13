@@ -43,22 +43,22 @@ body:before{content:"iPhoneを横向きにしてください";position:fixed;ins
     <span id="gps">GPS --m</span>
     <span id="cap">CAP ---°</span>
     <span id="headingMode">GPS-CAP</span>
-    <span>Matsu RallyCon v0.2 SAFE</span>
+    <span>Matsu RallyCon v0.3 SAFE</span>
   </div>
 
   <div class="main">
     <section class="panel">
-      <div class="metric"><div class="label">TOTAL</div><div class="value" id="total">0.000</div><div class="small">km</div></div>
-      <div class="metric"><div class="label">LEG</div><div class="value" id="leg">0.000</div><div class="small">km</div></div>
+      <div class="metric"><div class="label">TOTAL</div><div class="value" id="total">0.00</div><div class="small">km</div></div>
+      <div class="metric"><div class="label">LEG</div><div class="value" id="leg">0.00</div><div class="small">km</div></div>
       <div class="metric"><div class="label">SPEED</div><div class="value" id="speed">0.0</div><div class="small">km/h</div></div>
     </section>
 
     <section class="center">
-      <div class="rbhead"><span>ROADBOOK <span id="rbno">1</span></span><span id="target">0.000 km</span></div>
+      <div class="rbhead"><span>ROADBOOK <span id="rbno">1</span></span><span id="target">0.00 km</span></div>
       <div class="arrow" id="arrow">↗</div>
       <div class="rbtext" id="rbtext">START</div>
       <div class="warning" id="warning"></div>
-      <div class="remaining" id="remaining">NEXTまで 0.000 km</div>
+      <div class="remaining" id="remaining">NEXTまで 0.00 km</div>
     </section>
 
     <section class="panel">
@@ -96,9 +96,10 @@ const roadbook=[
 ];
 
 function displayTotal(){return (total+correction)/1000}
+function displayLeg(){return Math.max(0,displayTotal()-legBase)}
 function update(){
   $("total").textContent=displayTotal().toFixed(2);
-  $("leg").textContent=(Math.max(0,total-legBase+correction)/1000).toFixed(3);
+  $("leg").textContent=displayLeg().toFixed(2);
   $("run").textContent=watchId!==null?"RUN":"STOP";
   $("gpsbtn").textContent=watchId!==null?"GPS STOP":"GPS START";
   const target=roadbook[rb-1].dist;
@@ -172,7 +173,7 @@ function startGPS(){
       if(remain<=0.015 && displayTotal()>lastAutoNext+0.02){
         lastAutoNext=displayTotal();
         rb++;
-        legBase=total;
+        legBase=displayTotal();
         setRB(rb);
       }
     }
@@ -196,7 +197,7 @@ $("gpsbtn").onclick=()=>watchId===null?startGPS():stopGPS();
 $("minus").onclick=()=>{correction-=10;update()};
 $("plus").onclick=()=>{correction+=10;update()};
 $("reset").onclick=()=>{correction=0;total=0;legBase=0;last=null;lastAutoNext=0;setRB(1);update()};
-$("next").onclick=()=>{if(rb<roadbook.length){rb++;legBase=total;lastAutoNext=displayTotal();setRB(rb)}};
+$("next").onclick=()=>{if(rb<roadbook.length){rb++;legBase=displayTotal();lastAutoNext=displayTotal();setRB(rb)}};
 $("start").onclick=()=>{
   if(timerStart===null){timerStart=Date.now()-elapsed*1000;$("start").textContent="STOP";wake()}
   else{elapsed=Math.floor((Date.now()-timerStart)/1000);timerStart=null;$("start").textContent="START"}
