@@ -97,14 +97,14 @@ const roadbook=[
 
 function displayTotal(){return (total+correction)/1000}
 function update(){
-  $("total").textContent=displayTotal().toFixed(3);
+  $("total").textContent=displayTotal().toFixed(2);
   $("leg").textContent=(Math.max(0,total-legBase+correction)/1000).toFixed(3);
   $("run").textContent=watchId!==null?"RUN":"STOP";
   $("gpsbtn").textContent=watchId!==null?"GPS STOP":"GPS START";
   const target=roadbook[rb-1].dist;
-  $("target").textContent=target.toFixed(3)+" km";
+  $("target").textContent=target.toFixed(2)+" km";
   const remain=Math.max(0,target-displayTotal());
-  $("remaining").textContent="NEXTまで "+remain.toFixed(3)+" km";
+  $("remaining").textContent="NEXTまで "+remain.toFixed(2)+" km";
 }
 function setRB(n){
   rb=Math.max(1,Math.min(roadbook.length,n));
