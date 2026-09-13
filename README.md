@@ -1,4 +1,4 @@
-# Matsu RallyCon v0.5 PDF
+# Matsu RallyCon v0.5.1 PDF
 
 KOMAREN-style A4 roadbook PDFを中央に表示する、iPhone Safari / GitHub Pages向け試作です。
 
@@ -18,9 +18,18 @@ KOMAREN-style A4 roadbook PDFを中央に表示する、iPhone Safari / GitHub P
 
 ## 注意
 - GPS距離はGPS点間の積算で、タイヤ周長補正はまだ入れていません。
-- v0.5ではサンプルPDFのコマ索引を内蔵しています。別PDFではPDF表示・手動ページ送りが使えます。
+- v0.5.1ではサンプルPDFのコマ索引を内蔵しています。別PDFではPDF表示・手動ページ送りが使えます。
 - AUTO NEXTやPDFコマ同期を汎用化するのが次の段階です。
 - PDF.jsをCDNから読み込みます。初回表示にはインターネット接続が必要です。
 
 ## GitHub Pages
 `index.html`をルートに置き、Pagesを `main / (root)` に設定してください。
+
+
+### v0.5.1
+- PDF中央表示をタッチ操作対応
+- 1本指ドラッグで表示位置を移動
+- 2本指ピンチで直感的に拡大・縮小
+- ダブルタップでFit / 200%を切替
+- PCではマウスホイールでもズーム可能
+- ズーム中のPDF位置をできるだけ維持
